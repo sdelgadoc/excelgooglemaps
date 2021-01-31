@@ -10,7 +10,7 @@ First, clone this repository onto your system.
 
 Then, in an Excel spreadsheet, type Alt+F11 to open the VBA development environment.
 
-In the VBA development environment, click on File > Import File... and navigate to the location of the `DistanceFunctions.bas`.
+In the VBA development environment, click on File > Import File... and navigate to the location of the `DistanceFunctions.bas` file from this repo.
 
 
 

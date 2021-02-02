@@ -1,17 +1,15 @@
 Attribute VB_Name = "DistanceFunctions"
 Option Explicit
+'Based on: https://myengineeringworld.net/2014/06/geocoding-vba-google-api.html
 
-'Declare the Sleep function from the Windows DLL
-Public Declare PtrSafe Sub Sleep Lib "kernel32" (ByVal milliseconds As Long)
+'Declare module global variables
+Private Const sleepSeconds As Integer = 5
+Private Const apiKey As String = "INSERT-YOUR-API-KEY-HERE"
+
 
 Public Function GetDistance(origins As String, destinations As String) As String
-    'Written By:    Santiago Delgado
-    'Last Updated:  10/12/2020
-    'Based on:      https://myengineeringworld.net/2014/06/geocoding-vba-google-api.html
-    
     
     'Declaring the necessary variables.
-    Dim apiKey              As String
     Dim xmlhttpRequest      As Object
     Dim xmlDoc              As Object
     Dim xmlStatusNode       As Object
@@ -19,9 +17,6 @@ Public Function GetDistance(origins As String, destinations As String) As String
     Dim xmLongitudeNode     As Object
     Dim xmlResultNode       As Object
     Dim xmlPath             As String
-       
-    'Set your API key in this variable. Check this link for more info:
-    apiKey = "INSERT-YOUR-API-KEY-HERE"
     
     'Check that an API key has been provided.
     If apiKey = vbNullString Or apiKey = "The API Key" Then
@@ -52,8 +47,8 @@ Public Function GetDistance(origins As String, destinations As String) As String
     'An alternative way, without the EncodeURL function, will be this:
     'xmlhttpRequest.Open "GET", "https://maps.googleapis.com/maps/api/geocode/xml?" & "&address=" & Address & "&key=" & ApiKey, False
     
-    'Wait ten seconds to not overload the API
-    Sleep (10000)
+    'Wait to not overload the API
+    CreateObject("Excel.Application").Wait (Now + TimeValue("00:00:" & CStr(sleepSeconds)))
     
     'Send the request to the Google server.
     xmlhttpRequest.send
@@ -121,13 +116,8 @@ End Function
 
 
 Public Function GetPostalcode(address As String) As String
-    'Written By:    Santiago Delgado
-    'Last Updated:  10/11/2020
-    'Based on:      https://myengineeringworld.net/2014/06/geocoding-vba-google-api.html
-    
     
     'Declaring the necessary variables.
-    Dim apiKey              As String
     Dim xmlhttpRequest      As Object
     Dim xmlDoc              As Object
     Dim xmlStatusNode       As Object
@@ -135,9 +125,6 @@ Public Function GetPostalcode(address As String) As String
     Dim xmLongitudeNode     As Object
     Dim xmlPostalCodeNode   As Object
     Dim xmlPath             As String
-       
-    'Set your API key in this variable. Check this link for more info:
-    apiKey = "INSERT-YOUR-API-KEY-HERE"
     
     'Check that an API key has been provided.
     If apiKey = vbNullString Or apiKey = "The API Key" Then
@@ -171,8 +158,8 @@ Public Function GetPostalcode(address As String) As String
     'Send the request to the Google server.
     xmlhttpRequest.send
     
-    'Wait ten seconds to not overload the API
-    Sleep (10000)
+    'Wait to not overload the API
+    CreateObject("Excel.Application").Wait (Now + TimeValue("00:00:" & CStr(sleepSeconds)))
     
     'Create the DOM document object and check if it was created successfully.
     Set xmlDoc = CreateObject("MSXML2.DOMDocument")
@@ -235,13 +222,8 @@ errorHandler:
 End Function
 
 Public Function GetAddress(address As String) As String
-    'Written By:    Santiago Delgado
-    'Last Updated:  10/11/2020
-    'Based on:      https://myengineeringworld.net/2014/06/geocoding-vba-google-api.html
-    
     
     'Declaring the necessary variables.
-    Dim apiKey              As String
     Dim xmlhttpRequest      As Object
     Dim xmlDoc              As Object
     Dim xmlStatusNode       As Object
@@ -249,9 +231,6 @@ Public Function GetAddress(address As String) As String
     Dim xmLongitudeNode     As Object
     Dim xmlAddressNode      As Object
     Dim xmlPath             As String
-       
-    'Set your API key in this variable. Check this link for more info:
-    apiKey = "INSERT-YOUR-API-KEY-HERE"
     
     'Check that an API key has been provided.
     If apiKey = vbNullString Or apiKey = "The API Key" Then
@@ -285,8 +264,8 @@ Public Function GetAddress(address As String) As String
     'Send the request to the Google server.
     xmlhttpRequest.send
     
-    'Wait ten seconds to not overload the API
-    Sleep (10000)
+    'Wait to not overload the API
+    CreateObject("Excel.Application").Wait (Now + TimeValue("00:00:" & CStr(sleepSeconds)))
     
     'Create the DOM document object and check if it was created successfully.
     Set xmlDoc = CreateObject("MSXML2.DOMDocument")
@@ -347,8 +326,3 @@ errorHandler:
     Set xmlhttpRequest = Nothing
     
 End Function
-
-
-
-
-
